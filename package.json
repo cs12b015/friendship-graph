@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "helmet": "^6.0.0",
+    "http-status": "^1.5.3",
+    "joi": "^17.3.0",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "p-limit": "^3.1.0",
+    "sequelize": "^6.23.1",
+    "sqlite3": "^5.0.2",
+    "winston": "^3.2.1",
+    "xss-clean": "^0.1.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^24.0.1",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-security": "^1.4.0",
+    "faker": "^5.1.0",
+    "husky": "^8.0.1",
+    "jest": "^26.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.0.5",
+    "sequelize-cli": "^6.4.1"
+  },
+  "scripts": {
+    "start": "NODE_OPTIONS=--max_old_space_size=4120 node src/index.js",
+    "dev": "NODE_OPTIONS=--max_old_space_size=4120 NODE_ENV=development node src/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check {src,tests/*}/{,**/}*.js",
+    "prettier:fix": "prettier --write {src,tests/*}/{,**/}*.js",
+    "test": "jest -i --colors --verbose --detectOpenHandles",
+    "test:watch": "jest -i --watchAll",
+    "prepare": "husky install"
+  }
+}
