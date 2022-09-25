@@ -1,7 +1,6 @@
 const { QueryTypes } = require('sequelize');
 const { Friend, sequelize } = require('../models');
-
-const DEPTH = 2; // degrees of separation in graph
+const { connectionDepth } = require('../config');
 
 /**
  * @description Search for friends of a user
@@ -10,7 +9,7 @@ const DEPTH = 2; // degrees of separation in graph
  * @param {Number} depth Depth of the search
  * @returns {Promise} Promise object represents the result of the search
  */
-const search = (query, userId, depth = DEPTH) =>
+const search = (query, userId) =>
   sequelize.query(
     `WITH RECURSIVE find_depth(userId, friendId, distance, path) AS
       (SELECT userId, friendId, 1 AS distance, userId || '.' || friendId || '.' AS path
@@ -18,7 +17,7 @@ const search = (query, userId, depth = DEPTH) =>
         UNION ALL
         SELECT fd.userId, f.friendId, fd.distance + 1, fd.path || f.friendId || '.' AS path
         FROM Friends AS f
-        JOIN find_depth AS fd ON f.userId = fd.friendId and fd.distance < ${depth}
+        JOIN find_depth AS fd ON f.userId = fd.friendId and fd.distance < ${connectionDepth}
         WHERE fd.path NOT LIKE '%' || f.friendId || '.%' 
       )
       SELECT id, name, IFNULL((SELECT min(distance) FROM find_depth WHERE friendId = id), 0) as connection

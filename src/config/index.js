@@ -8,6 +8,7 @@ const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'test').default('development'),
     PORT: Joi.number().default(3001),
+    FRIEND_CONNECTION_DEPTH: Joi.number().default(2).min(1),
   })
   .unknown();
 
@@ -20,4 +21,5 @@ if (error) {
 module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
+  connectionDepth: envVars.FRIEND_CONNECTION_DEPTH,
 };
